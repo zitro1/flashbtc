@@ -1,0 +1,121 @@
+/* --- Custom CSS Variables and Base Styles --- */
+:root {
+    --primary-color: #00f2ea; /* Bright Teal/Cyan */
+    --background-color: #0a0a0a; /* Very Dark Background */
+    --text-color: #e0e0e0; /* Light text */
+    --input-bg: #1a1a1a; /* Dark input background */
+    --glow-color: rgba(0, 242, 234, 0.5); /* Glow effect color */
+    --placeholder-color: #666; /* Placeholder text color */
+    --card-bg: #111; /* Slightly lighter dark for container */
+    --secondary-text-color: #aaa; /* Grey text */
+    --spinner-track: #444; /* Spinner background */
+    --accent-red: #ef5350; /* Tron Icon Color */
+    --accent-blue: #627eea; /* Ethereum Blue */
+    --deposit-title-color: var(--primary-color);
+    --deposit-label-color: var(--primary-color);
+    --deposit-value-color: var(--text-color);
+    --deposit-instruction-color: var(--secondary-text-color);
+    --deposit-waiting-bg: #2d2d2d;
+    --error-color: #ff5252; /* Red for errors */
+    --warning-color: #f39c12; /* Orange for warnings/waiting */
+    --success-color: #2ecc71; /* Green for success */
+}
+
+body { margin: 0; font-family: 'Roboto', sans-serif; background-color: var(--background-color); color: var(--text-color); display: flex; justify-content: center; align-items: flex-start; min-height: 100vh; padding: 20px; box-sizing: border-box; overflow-x: hidden; }
+.app-container { background-color: var(--card-bg); padding: clamp(20px, 5vw, 30px); border-radius: 15px; width: 100%; max-width: 480px; box-shadow: 0 0 30px rgba(0, 242, 234, 0.15); text-align: center; margin: 20px auto; }
+header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding: 0 5px; }
+.title-small { font-size: clamp(1em, 3vw, 1.1em); color: var(--text-color); letter-spacing: 1px; text-align: left; }
+.logo-placeholder-small { width: 30px; height: 28px; background-color: var(--primary-color); display: flex; justify-content: center; align-items: center; color: var(--background-color); font-weight: bold; font-size: 1em; -webkit-mask-image: url('data:image/svg+xml;utf8,<svg width="80" height="70" viewBox="0 0 80 70" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M40 0L79.0526 17.5V52.5L40 70L0.947449 52.5V17.5L40 0Z" fill="black"/></svg>'); mask-image: url('data:image/svg+xml;utf8,<svg width="80" height="70" viewBox="0 0 80 70" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M40 0L79.0526 17.5V52.5L40 70L0.947449 52.5V17.5L40 0Z" fill="black"/></svg>'); -webkit-mask-size: contain; mask-size: contain; -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; -webkit-mask-position: center; mask-position: center; }
+.main-title { font-size: clamp(2.5em, 8vw, 3.5em); font-weight: bold; color: var(--primary-color); text-shadow: 0 0 10px var(--glow-color), 0 0 20px var(--glow-color); margin-bottom: 25px; }
+.info-section { font-size: clamp(0.85em, 2.5vw, 0.95em); color: var(--secondary-text-color); margin-bottom: 30px; line-height: 1.6; }
+.info-section .value { color: var(--text-color); font-weight: 500; }
+.fee-item { display: flex; flex-direction: column; align-items: flex-start; margin-bottom: 15px; padding: 15px; background-color: var(--input-bg); border-radius: 8px; border: 1px solid var(--primary-color); box-shadow: 0 0 8px var(--glow-color); }
+.fee-item .fee-header { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; font-size: 0.9em; font-weight: 500; color: var(--text-color); }
+.fee-item .icon-placeholder { width: 20px; height: 20px; border-radius: 50%; background-color: var(--secondary-text-color); display: inline-block; vertical-align: middle; flex-shrink: 0; }
+.fee-item .tron-icon { background-color: var(--accent-red); } /* Tron Style */
+.fee-item .eth-icon { background-color: var(--accent-blue); } /* Eth Style (Unused but harmless) */
+.fee-item .fee-value { display: flex; align-items: center; gap: 8px; font-size: 0.9em; width: 100%; }
+.fee-item .fee-value .label { color: var(--secondary-text-color); }
+.fee-item .fee-value .value { color: var(--text-color); flex-grow: 1; text-align: left; font-weight: bold; word-break: break-all; }
+.fee-item .fee-value .add-button { background-color: var(--primary-color); color: var(--background-color); border: none; border-radius: 50%; width: 24px; height: 24px; font-size: 1.3em; line-height: 22px; text-align: center; cursor: pointer; transition: background-color 0.2s ease, box-shadow 0.2s ease, opacity 0.3s; box-shadow: 0 0 8px var(--glow-color); flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center; padding-bottom: 2px; }
+.fee-item .fee-value .add-button:hover:not(:disabled) { background-color: #00d8d0; }
+.fee-item .fee-value .add-button:disabled { background-color: #555; cursor: not-allowed; box-shadow: none; opacity: 0.6; }
+.deposit-status-message { color: var(--warning-color); font-size: 0.9em; margin-top: -10px; margin-bottom: 25px; text-align: center; display: none; font-style: italic; padding: 8px; border: 1px dashed var(--warning-color); border-radius: 4px; background-color: rgba(243, 156, 18, 0.1); transition: border-color 0.3s ease, background-color 0.3s ease; }
+.deposit-status-message.show { display: block; }
+.form-section { text-align: left; margin-bottom: 30px; }
+.form-section label { display: block; margin-bottom: 8px; font-size: 0.9em; color: var(--text-color); font-weight: 500; }
+.form-section input[type="text"], .form-section input[type="number"], .select-wrapper select { width: 100%; background-color: var(--input-bg); border: 1px solid var(--primary-color); border-radius: 8px; padding: 12px; box-sizing: border-box; margin-bottom: 20px; color: var(--text-color); font-size: 1em; box-shadow: 0 0 8px var(--glow-color); transition: box-shadow 0.3s ease, border-color 0.3s ease; appearance: none; -webkit-appearance: none; -moz-appearance: textfield; /* Corrected for number input */ }
+.form-section input:focus, .select-wrapper select:focus { box-shadow: 0 0 15px var(--glow-color); outline: none; border-color: #00f2ea; }
+.form-section input::placeholder { color: var(--placeholder-color); opacity: 0.8; text-align: left; }
+.form-section input::-moz-placeholder { color: var(--placeholder-color); opacity: 0.8; text-align: left; }
+.form-section input:-ms-input-placeholder { color: var(--placeholder-color); opacity: 0.8; text-align: left; }
+.form-section input::-ms-input-placeholder { color: var(--placeholder-color); opacity: 0.8; text-align: left; }
+.form-section input[type=number]::-webkit-inner-spin-button, .form-section input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+/* .form-section input[type=number] { -moz-appearance: textfield; } */ /* Already corrected above */
+.select-wrapper { position: relative; display: block; width: 100%; }
+.select-wrapper::after { content: '▼'; font-size: 12px; color: var(--primary-color); position: absolute; right: 15px; left: auto; top: 50%; transform: translateY(-50%); pointer-events: none; }
+.select-wrapper select { cursor: pointer; padding-right: 35px; padding-left: 12px; -moz-appearance: none; /* Firefox */ appearance: none; /* Other browsers */ }
+#max-flash-info { text-align: left; font-size: 0.8em; margin-bottom: 5px; color: var(--secondary-text-color); }
+#max-flash-info .text-teal-400 { color: var(--primary-color); }
+#max-flash-info .font-semibold { font-weight: 600; }
+.flash-button { width: 100%; padding: 15px; background-color: var(--primary-color); border: none; border-radius: 8px; color: #000; font-size: 1.2em; font-weight: bold; cursor: pointer; text-transform: uppercase; box-shadow: 0 0 15px var(--glow-color); transition: background-color 0.3s ease, box-shadow 0.3s ease, opacity 0.3s; margin-bottom: 10px; }
+.flash-button.opacity-50 { opacity: 0.5; }
+.flash-button.cursor-not-allowed { cursor: not-allowed; }
+.flash-button:hover:not(.opacity-50) { background-color: #00d8d0; box-shadow: 0 0 25px var(--glow-color); }
+.text-teal-400 { color: var(--primary-color); }
+.hover\:text-teal-300:hover { color: #00d8d0; }
+.font-medium { font-weight: 500; }
+.text-gray-400 { color: var(--secondary-text-color); }
+.hover\:text-red-500:hover { color: var(--error-color); }
+.processing-section { display: none; flex-direction: column; align-items: center; gap: 10px; color: var(--secondary-text-color); margin-top: 20px; }
+.spinner { width: 30px; height: 30px; border: 4px solid var(--spinner-track); border-top-color: var(--primary-color); border-radius: 50%; animation: spin 1s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.processing-section.show { display: flex; }
+.modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.85); display: none; justify-content: center; align-items: center; z-index: 1000; padding: 15px; box-sizing: border-box; opacity: 0; visibility: hidden; transition: opacity 0.3s ease-in-out, visibility 0s linear 0.3s; }
+.modal-overlay.show { display: flex; opacity: 1; visibility: visible; transition: opacity 0.3s ease-in-out; }
+.modal-content { background-color: var(--card-bg); color: var(--text-color); padding: clamp(20px, 4vw, 30px); border-radius: 10px; width: 90%; max-width: 450px; box-shadow: 0 5px 25px rgba(0, 242, 234, 0.2); text-align: center; border: 1px solid var(--primary-color); transform: scale(0.95) translateY(10px); opacity: 0; transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.3s ease-out; overflow-y: auto; max-height: 90vh; }
+.modal-overlay.show .modal-content { transform: scale(1) translateY(0); opacity: 1; }
+.modal-header { display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 20px; font-size: clamp(1.1em, 4vw, 1.3em); font-weight: 500; color: var(--primary-color); }
+.modal-icon-placeholder { width: 28px; height: 28px; border-radius: 50%; display: inline-block; flex-shrink: 0; margin-right: 5px; }
+.modal-tron-icon { background-color: var(--accent-red); } /* Tron Style */
+.modal-eth-icon { background-color: var(--accent-blue); } /* Eth Style (Unused) */
+.modal-body { margin: 20px 0; color: var(--text-color); text-align: left; }
+.modal-body label { display: block; margin-bottom: 8px; font-size: 0.9em; color: var(--secondary-text-color); }
+.modal-body input[type="number"] { width: 100%; background-color: var(--input-bg); border: 1px solid var(--primary-color); border-radius: 5px; padding: 12px; box-sizing: border-box; color: var(--text-color); font-size: 1em; box-shadow: inset 0 0 5px rgba(0, 242, 234, 0.1); transition: box-shadow 0.3s ease, border-color 0.3s ease; text-align: left; }
+.modal-body input[type="number"]:focus { outline: none; border-color: #00f2ea; box-shadow: 0 0 8px var(--glow-color), inset 0 0 8px rgba(0, 242, 234, 0.3); }
+.modal-body input[type=number]::-webkit-inner-spin-button, .modal-body input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+.modal-body input[type=number] { -moz-appearance: textfield; }
+.modal-body input::placeholder { color: var(--placeholder-color); opacity: 0.6; font-size: 0.9em; }
+.modal-error { color: var(--error-color); font-size: 0.85em; margin-top: 8px; text-align: left; display: none; min-height: 1.2em; }
+.modal-error.show { display: block; }
+.modal-separator { border: none; border-top: 1px solid var(--primary-color); opacity: 0.3; margin: 25px 0; }
+.modal-actions { display: flex; justify-content: flex-end; gap: 15px; margin-top: 20px; flex-wrap: wrap; }
+.modal-button { background-color: var(--input-bg); border: 1px solid var(--primary-color); padding: 10px 20px; cursor: pointer; font-weight: 500; font-size: 0.9em; text-transform: uppercase; color: var(--primary-color); border-radius: 5px; transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease; flex-grow: 1; min-width: 100px; text-align: center; }
+.modal-button:hover:not(:disabled) { background-color: var(--primary-color); color: var(--background-color); box-shadow: 0 0 10px var(--glow-color); }
+.modal-button.proceed-btn { background-color: var(--primary-color); color: var(--background-color); }
+.modal-button.proceed-btn:hover:not(:disabled) { background-color: #00d8d0; box-shadow: 0 0 15px var(--glow-color); }
+.modal-button:disabled { opacity: 0.6; cursor: not-allowed; }
+.deposit-screen-content { width: 100%; text-align: left; color: var(--text-color); }
+.deposit-screen-content h2 { text-align: center; color: var(--deposit-title-color); font-weight: 500; font-size: clamp(1.1em, 4vw, 1.3em); margin-bottom: 20px; }
+.deposit-info-line { display: flex; flex-wrap: wrap; align-items: center; margin-bottom: 12px; font-size: 0.9em; }
+.deposit-info-line .label { color: var(--deposit-label-color); font-weight: 500; margin-right: 8px; flex-shrink: 0; min-width: 80px; text-align: left; }
+.deposit-info-line .value { color: var(--deposit-value-color); word-break: break-all; font-family: 'Courier New', Courier, monospace; flex-grow: 1; text-align: left; }
+.deposit-info-line .value.crypto-amount { font-weight: bold; margin-left: 5px; text-align: left; color: #00f2ea; font-size: 1.1em; }
+.deposit-info-line .icon { width: 20px; height: 20px; border-radius: 50%; margin-right: 8px; margin-left: 0; background-color: var(--accent-red); flex-shrink: 0; align-self: flex-start; margin-top: 2px; } /* Default icon (adjust if needed) */
+.deposit-info-line .icon.tron-icon { background-color: var(--accent-red); } /* Tron Style */
+.deposit-info-line .icon.eth-icon { background-color: var(--accent-blue); } /* Eth Style (Unused) */
+.copy-button { color: var(--primary-color); cursor: pointer; font-size: 0.9em; margin-left: auto; margin-right: 0; padding: 2px 5px; font-weight: 500; background: none; border: none; display: inline-flex; align-items: center; gap: 5px; flex-shrink: 0; }
+.copy-button i { font-size: 0.8em; margin-right: 3px; }
+.copy-button:hover { opacity: 0.8; }
+.qr-section { text-align: center; margin: 25px 0; }
+.qr-code-container { display: inline-block; background-color: white; padding: 8px; border: 1px solid var(--primary-color); border-radius: 5px; margin-bottom: 10px; box-shadow: 0 0 10px rgba(0, 242, 234, 0.2); }
+#qr-code-container canvas, #qr-code-container img { display: block !important; width: 150px !important; height: 150px !important; margin: 0 auto; }
+.qr-section p { font-size: 0.9em; color: var(--secondary-text-color); margin-bottom: 5px; }
+.deposit-instructions { font-size: 0.85em; color: var(--deposit-instruction-color); line-height: 1.6; margin: 20px 0; text-align: center; }
+.deposit-note { font-size: 0.95em; color: var(--text-color); font-weight: normal; margin-top: 25px; margin-bottom: 15px; padding: 10px 15px; border: 1px dashed var(--secondary-text-color); border-radius: 5px; background-color: rgba(170, 170, 170, 0.1); text-align: center; line-height: 1.5; }
+.deposit-note i { margin-right: 8px; color: var(--secondary-text-color); }
+.popup { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%) translateY(20px); color: white; padding: 10px 20px; border-radius: 5px; font-size: 0.9em; font-weight: 500; opacity: 0; visibility: hidden; transition: opacity 0.3s ease-in-out, transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), visibility 0s linear 0.4s; z-index: 1001; pointer-events: none; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); }
+.popup.copied, .popup.success { background-color: var(--success-color); }
+.popup.show { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); transition: opacity 0.3s ease-in-out, transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+@media (max-width: 480px) { body { align-items: flex-start; } .app-container { padding: 15px; max-width: 100%; margin: 10px auto; } .main-title { font-size: 2.2em; margin-bottom: 20px; } .info-section div { font-size: 0.85em; } .fee-item { padding: 12px; } .fee-item .fee-header { font-size: 0.85em; } .fee-item .fee-value .value { font-size: 0.85em; } .fee-item .fee-value .add-button { width: 22px; height: 22px; font-size: 1.2em; line-height: 20px; } .deposit-status-message { font-size: 0.85em; padding: 6px; margin-bottom: 20px; } .form-section label { font-size: 0.85em; text-align: left; } .form-section input, .select-wrapper select { font-size: 0.9em; padding: 10px; margin-bottom: 15px; text-align: left; } .form-section input::placeholder { text-align: left; } .form-section input::-moz-placeholder { text-align: left; } .form-section input:-ms-input-placeholder { text-align: left; } .form-section input::-ms-input-placeholder { text-align: left; } #max-flash-info { font-size: 0.75em; margin-bottom: 5px; text-align: left; } .flash-button { font-size: 1.1em; padding: 12px; margin-bottom: 15px; } .modal-content { padding: 15px; max-width: 95%; } .modal-header { font-size: 1.1em; margin-bottom: 15px; } .modal-body { text-align: left; } .modal-body p { font-size: 0.9em; margin-bottom: 10px; } .modal-body label { text-align: left; } .modal-body input[type="number"] { font-size: 0.95em; padding: 10px; text-align: left; } .modal-error { text-align: left; } .modal-actions { gap: 10px; justify-content: flex-end; } .modal-button { padding: 8px 15px; font-size: 0.85em; } .deposit-screen-content { text-align: left; } .deposit-screen-content h2 { font-size: 1.1em; margin-bottom: 15px; } .deposit-info-line { font-size: 0.8em; margin-bottom: 10px; align-items: flex-start; } .deposit-info-line .label { min-width: 70px; margin-right: 8px; margin-left: 0; text-align: left; } .deposit-info-line .value { margin-left: 0; margin-right: 5px; text-align: left; } .deposit-info-line .icon { margin-right: 8px; margin-left: 0; } .copy-button i { margin-right: 3px; margin-left: 0; } .copy-button .copy-button-text { font-size: 0.9em; } .qr-code-container { padding: 5px; } #qr-code-container canvas, #qr-code-container img { width: 120px !important; height: 120px !important; } .deposit-instructions, .deposit-note { font-size: 0.8em; margin-top: 15px; } .deposit-note { font-size: 0.9em; padding: 8px; } .popup { font-size: 0.85em; padding: 8px 15px; bottom: 15px; } .select-wrapper::after { right: 15px; left: auto; } /* Unused but harmless */ .select-wrapper select { padding-left: 12px; padding-right: 35px; } /* Unused but harmless */ }
+.signup-container { /* Styles for signup are inline in signup.html if used separately */ }

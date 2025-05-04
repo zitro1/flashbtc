@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create New Account</title>
+
+    <!-- Link the main style.css file -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Custom CSS for this page only -->
+    <style>
+        body { display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
+        .signup-container { background-color: var(--card-bg); padding: clamp(25px, 6vw, 40px); border-radius: 15px; width: 100%; max-width: 450px; box-shadow: 0 0 30px rgba(0, 242, 234, 0.15); text-align: center; border: 1px solid var(--primary-color); margin: 20px auto; }
+        .signup-title { font-size: clamp(1.8em, 6vw, 2.5em); font-weight: bold; color: var(--primary-color); text-shadow: 0 0 8px var(--glow-color); margin-bottom: 30px; }
+        .signup-form label { display: block; margin-bottom: 8px; font-size: 0.9em; color: var(--text-color); font-weight: 500; text-align: left; }
+        .signup-form input { width: 100%; background-color: var(--input-bg); border: 1px solid var(--primary-color); border-radius: 8px; padding: 12px; box-sizing: border-box; margin-bottom: 20px; color: var(--text-color); font-size: 1em; box-shadow: 0 0 8px var(--glow-color); transition: box-shadow 0.3s ease, border-color 0.3s ease; direction: ltr; text-align: left; }
+         .signup-form input:focus { box-shadow: 0 0 15px var(--glow-color); outline: none; border-color: #00f2ea; }
+        .signup-form input::placeholder { color: var(--placeholder-color); opacity: 0.8; text-align: left; }
+        .signup-button { width: 100%; padding: 15px; background-color: var(--primary-color); border: none; border-radius: 8px; color: #000; font-size: 1.2em; font-weight: bold; cursor: pointer; text-transform: uppercase; box-shadow: 0 0 15px var(--glow-color); transition: background-color 0.3s ease, box-shadow 0.3s ease, opacity 0.3s; margin-top: 10px; margin-bottom: 20px; }
+        .signup-button:hover { background-color: #00d8d0; box-shadow: 0 0 25px var(--glow-color); }
+        .login-link { margin-top: 15px; font-size: 0.9em; }
+        .login-link a { color: var(--primary-color); text-decoration: none; font-weight: 500; }
+        .login-link a:hover { text-decoration: underline; }
+        .error-message { color: var(--error-color); font-size: 0.85em; margin-top: -10px; margin-bottom: 15px; min-height: 1.2em; text-align: left; display: none; white-space: pre-line; }
+        .error-message.show { display: block; }
+    </style>
+
+    <!-- Font Awesome (Optional) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <div class="signup-container">
+        <div class="signup-title">Create New Account</div>
+
+        <form id="signupForm" class="signup-form" novalidate>
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" placeholder="Enter username" required>
+
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email" required>
+
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" placeholder="Enter password" required minlength="8">
+
+            <label for="confirmPassword">Confirm Password</label>
+            <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Re-enter password" required>
+
+            <div id="errorMessage" class="error-message"></div> <!-- Error messages set by JS -->
+
+            <button type="submit" class="signup-button">Create Account</button>
+        </form>
+
+        <div class="login-link">
+            Already have an account? <a href="index.html">Log In</a>
+            <br>
+            <a href="index.html" style="font-size: 0.8em; margin-top: 10px; display: inline-block;">← Back to Main Tool</a>
+        </div>
+    </div>
+
+    <script>
+        // Inline JavaScript for signup (English)
+        document.addEventListener('DOMContentLoaded', () => {
+            const signupForm = document.getElementById('signupForm');
+            const usernameInput = document.getElementById('username');
+            const emailInput = document.getElementById('email');
+            const passwordInput = document.getElementById('password');
+            const confirmPasswordInput = document.getElementById('confirmPassword');
+            const errorMessageElement = document.getElementById('errorMessage');
+
+            if (!signupForm) return;
+
+            signupForm.addEventListener('submit', (event) => {
+                event.preventDefault();
+                errorMessageElement.textContent = ''; errorMessageElement.classList.remove('show');
+                const username = usernameInput.value.trim(); const email = emailInput.value.trim();
+                const password = passwordInput.value; const confirmPassword = confirmPasswordInput.value;
+                let errors = [];
+                // Standard English validation messages
+                if (!username) errors.push("Username is required.");
+                if (!email) errors.push("Email is required.");
+                else if (!/\S+@\S+\.\S+/.test(email)) errors.push("Invalid email format.");
+                if (!password) errors.push("Password is required.");
+                else if (password.length < 8) errors.push("Password must be at least 8 characters long.");
+                if (password !== confirmPassword) errors.push("Passwords do not match.");
+
+                if (errors.length > 0) { errorMessageElement.textContent = errors.join('\n'); errorMessageElement.classList.add('show'); return; }
+
+                console.log("Processing account creation with:", { username, email });
+                try { localStorage.setItem('loggedInUser', username); console.log(`Stored username '${username}' in localStorage.`); }
+                catch (e) { console.error("Failed to write to localStorage:", e); alert("Error saving login state."); return; }
+
+                alert("✅ Account created successfully!\n\nYou are now logged in.\n\nRedirecting..."); // Standard English success message
+                setTimeout(() => { window.location.href = 'index.html'; }, 1500);
+            });
+        });
+    </script>
+</body>
+</html>
